@@ -2,28 +2,12 @@ import random
 import time
 import telebot
 from config import TOKEN
-from bs4 import BeautifulSoup as bs
-import requests
+from Pars_for_Bot import spisok_500
 
 
 bot_p = telebot.TeleBot(TOKEN)
 name = ''
-spisok_f = []
 
-
-def spisok_500():
-    global spisok_f
-    if len(spisok_f) == 0:
-        for i in (1, 2):
-            response_get = requests.get(f'https://www.kinoafisha.info/rating/movies/?page={i}')
-            print(response_get.status_code)
-            soup = bs(response_get.text, features='html.parser')
-            list_films = soup.find_all('a', class_='movieItem_title')
-            for film in list_films:
-                spisok_f.append(film.text)
-        return random.choice(spisok_f)
-    else:
-        return random.choice(spisok_f)
 
 
 # func for message time formated
