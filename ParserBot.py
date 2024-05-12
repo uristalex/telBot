@@ -1,12 +1,29 @@
+import random
 import time
 import telebot
 from config import TOKEN
-from bs4 import BeautifulSoup as bs4
+from bs4 import BeautifulSoup as bs
 import requests
 
 
 bot_p = telebot.TeleBot(TOKEN)
 name = ''
+spisok_f = []
+
+
+def spisok_500():
+    global spisok_f
+    if len(spisok_f) == 0:
+        for i in (1, 2):
+            response_get = requests.get(f'https://www.kinoafisha.info/rating/movies/?page={i}')
+            print(response_get.status_code)
+            soup = bs(response_get.text, features='html.parser')
+            list_films = soup.find_all('a', class_='movieItem_title')
+            for film in list_films:
+                spisok_f.append(film.text)
+        return random.choice(spisok_f)
+    else:
+        return random.choice(spisok_f)
 
 
 # func for message time formated
@@ -77,10 +94,9 @@ def ganre_repl(message):
     if message.text == "Случайный фильм из популярного":
         pass
     if message.text == "Случайный фильм из 500 лучших":
-        response_get = requests.get('https://www.kinopoisk.ru/lists/movies/top500/')
-        # print(response_get.status_code)
-        soup = bs4(response_get.text, features='html.parser')
-        print(soup)
+        bot_p.send_message(message.chat.id, spisok_500())
+
+
 
 
 
