@@ -14,7 +14,8 @@ def spisok_500():
             soup = bs(response_get.text, features='html.parser')
             list_films = soup.find_all('a', class_='movieItem_title')
             for film in list_films:
-                spisok_f.append(film.text)
+                link_pic = soup.find(alt=f'{film.text}')
+                spisok_f.append([film.text, str(link_pic.get('data-picture'))])
         return random.choice(spisok_f)
     else:
         return random.choice(spisok_f)

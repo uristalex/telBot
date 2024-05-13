@@ -78,7 +78,9 @@ def ganre_repl(message):
     if message.text == "Случайный фильм из популярного":
         pass
     if message.text == "Случайный фильм из 500 лучших":
-        bot_p.send_message(message.chat.id, spisok_500())
+        n_film, pic_film = spisok_500()
+        # bot_p.send_message(message.chat.id, f'{n_film}')
+        bot_p.send_photo(message.chat.id, photo=pic_film, caption=n_film)
 
 
 

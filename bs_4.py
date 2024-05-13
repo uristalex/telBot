@@ -12,19 +12,20 @@ def spisok_500():
             response_get = requests.get(f'https://www.kinoafisha.info/rating/movies/?page={i}')
             print(response_get.status_code)
             soup = bs(response_get.text, features='html.parser')
-            list_films = soup.find_all('a', class_='movieItem_title')
-            for film in list_films:
+            list_films = soup.find('div', class_='movieList_item movieItem  movieItem-rating movieItem-position  ')
+            # for film in list_films:
+            #
+            #     link_pic = soup.find(alt=f'{film.text}')
+            #     spisok_f.append([film.text, str(link_pic.get('data-picture'))])
+            print(list_films.text)
 
-                link_pic = soup.find(alt=f'{film.text}')
-                spisok_f.append([film.text, str(link_pic)])
-
-        return random.choice(spisok_f)
-    else:
-        return random.choice(spisok_f)
+        # return random.choice(spisok_f)
+    # else:
+        # return random.choice(spisok_f)
 
 
 spisok_500()
-print(spisok_f)
+# print(*spisok_f, sep='\n')
 
 
 # spisok_500()
