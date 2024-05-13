@@ -2,7 +2,7 @@ import random
 import time
 import telebot
 from config import TOKEN
-from Pars_for_Bot import spisok_500
+from Pars_for_Bot import spisok_500, rand_popular
 
 
 bot_p = telebot.TeleBot(TOKEN)
@@ -41,10 +41,10 @@ def help_mess(message):
 def key_pusk():
     keyb_markup = telebot.types.ReplyKeyboardMarkup()
     button_genre = telebot.types.KeyboardButton("Жанры фильмов")
-    button_rand_popular = telebot.types.KeyboardButton("Случайный фильм из популярного")
+    button_rand_popular = telebot.types.KeyboardButton("Случайный фильм из ожидаемых")
     button_rand_500 = telebot.types.KeyboardButton("Случайный фильм из 500 лучших")
-    keyb_markup.row(button_genre)
-    keyb_markup.row(button_rand_popular)
+    keyb_markup.row(button_genre, button_rand_popular)
+    # keyb_markup.row(button_rand_popular)
     keyb_markup.row(button_rand_500)
     return keyb_markup
 
@@ -75,8 +75,9 @@ def reg_name(message):
 def ganre_repl(message):
     if message.text == "Жанры фильмов":
         bot_p.send_message(message.chat.id, 'Выберите один из жанров: ', reply_markup=key_gener())
-    if message.text == "Случайный фильм из популярного":
-        pass
+    if message.text == "Случайный фильм из ожидаемых":
+        n_film, pic_film = rand_popular()
+        bot_p.send_photo(message.chat.id, caption=n_film, photo=pic_film)
     if message.text == "Случайный фильм из 500 лучших":
         n_film, pic_film = spisok_500()
         # bot_p.send_message(message.chat.id, f'{n_film}')

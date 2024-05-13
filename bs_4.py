@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup as bs
 import random
 
 spisok_f = []
+spisok_wait = []
 
 
 def spisok_500():
@@ -23,11 +24,27 @@ def spisok_500():
     # else:
         # return random.choice(spisok_f)
 
+def rand_popular():
+    global spisok_wait
+    if len(spisok_wait) == 0:
+        response_get = requests.get(f'https://www.kinoafisha.info/rating/releases/')
+        soup = bs(response_get.text, features='html.parser')
+        list_films = soup.find_all('a', class_='movieItem_title')
+        for film in list_films:
+            link_pic = soup.find(alt=f'{film.text}')
+            if not link_pic:
+                spisok_wait.append([film.text, 'https://img.freepik.com/premium-vector/ooops-comic-book-explosion-icon-simple-illustration-ooops-comic-book-explosion-vector-icon-web_96318-26126.jpg?w=826'])
+            else:
+                spisok_wait.append([film.text, str(link_pic.get('data-picture'))])
+        return random.choice(spisok_wait)
+    else:
+        return random.choice(spisok_wait)
 
-spisok_500()
-# print(*spisok_f, sep='\n')
 
+rand_popular()
+print(*spisok_wait, sep='\n')
 
+# <a class="movieItem_title" href="https://www.kinoafisha.info/movies/8369274/">Майор Гром: Игра</a>
 # spisok_500()
 # print(spisok_f)
 
