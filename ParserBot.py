@@ -1,4 +1,4 @@
-import random
+
 import time
 import telebot
 from config import TOKEN
