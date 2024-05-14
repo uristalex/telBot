@@ -30,7 +30,7 @@ def start_mess(message):
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
     help_text = """
-    "Для того чтобі начать введите команду /pusk"\
+    "Для того чтобы начать введите команду /pusk"\
     "Для получения помощи введите команду /help"\
     "Для того чтобы заново запустить бота введите /start"\
     "При работе с ботом используйте клавиатуру, которая появиться после отправки команды /pusk"
@@ -67,7 +67,7 @@ def help_pusk(message):
 def reg_name(message):
     global name
     name = message.text
-    bot_p.send_message(message.chat.id, f'Hi {name}\n Чтобы начать отправь /pusk\n'
+    bot_p.send_message(message.chat.id, f'Hi {name}\nЧтобы начать отправь /pusk\n'
                                             f'Если тебе нужна помощь, то отправь /help')
 
 
