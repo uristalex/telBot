@@ -1,5 +1,3 @@
-
-import time
 import telebot
 from config import TOKEN
 from Pars_for_Bot import spisok_500, rand_popular
@@ -7,12 +5,6 @@ from Pars_for_Bot import spisok_500, rand_popular
 
 bot_p = telebot.TeleBot(TOKEN)
 name = ''
-
-
-
-# func for message time formated
-def time_covert(t):
-    return time.strftime("%H:%M:%S %d.%m.%Y", time.localtime(t))
 
 
 @bot_p.message_handler(commands=['start'])
