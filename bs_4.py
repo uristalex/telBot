@@ -1,9 +1,13 @@
 import requests
 from bs4 import BeautifulSoup as bs
 import random
+import sqlite3 as sl
+
 
 spisok_f = []
 spisok_wait = []
+
+con = sl.connect('reports.db')
 
 
 def spisok_500():
@@ -43,6 +47,29 @@ def rand_popular():
 
 rand_popular()
 print(*spisok_wait, sep='\n')
+
+def start(message):
+    # подключаемся к базе
+    con = sl.connect('reports.db')
+    # получаем сегодняшнюю дату
+    now = datetime.now(timezone.utc)
+    date = now.date()
+    # пустая строка для будущих отчётов
+    s = ''
+     # работаем с базой
+    with con:
+        # выполняем запрос к базе
+        data = con.execute('SELECT * FROM reports WHERE date = :Date;',{'Date': str(date)})
+        # перебираем все результаты
+        for row in data:
+            # формируем строку в общем отчёте
+            s = s + '*' + row[3] + '*' + ' → ' + row[4] + '\n\n'
+    # если отчётов не было за сегодня
+    if s == '':
+        # формируем новое сообщение
+        s = 'За сегодня ещё нет записей'
+    # отправляем общий отчёт обратно в телеграм
+    bot.send_message(message.from_user.id, s, parse_mode='Markdown')
 
 # <a class="movieItem_title" href="https://www.kinoafisha.info/movies/8369274/">Майор Гром: Игра</a>
 # spisok_500()

@@ -2,6 +2,7 @@
 import  requests
 from bs4 import BeautifulSoup as bs
 import random
+import sqlite3 as sl
 
 spisok_f = []
 spisok_wait = []
