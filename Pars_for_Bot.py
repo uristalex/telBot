@@ -2,10 +2,14 @@
 import  requests
 from bs4 import BeautifulSoup as bs
 import random
-import sqlite3 as sl
+import time
 
 spisok_f = []
 spisok_wait = []
+
+
+def time_covert(t):
+    return time.strftime("%H:%M:%S %d.%m.%Y", time.localtime(t))
 
 
 def spisok_500():
