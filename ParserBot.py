@@ -54,6 +54,7 @@ def key_gener():
 @bot_p.message_handler(commands=['pusk'])
 def help_pusk(message):
     bot_p.send_message(message.chat.id,'Поехали!!!', reply_markup=key_pusk())
+    bot_p.send_message(message.chat.id, f'Теперь вы можете воспользоваться меню справа :)')
 
 
 def reg_name(message):
