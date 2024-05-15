@@ -6,6 +6,9 @@ import time
 
 spisok_f = []
 spisok_wait = []
+spisok_horror = []
+spisok_camedy = []
+spisok_fantasy = []
 
 
 def time_covert(t):

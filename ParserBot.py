@@ -81,13 +81,16 @@ def ganre_repl(message):
 @bot_p.callback_query_handler(func=lambda call: True)
 def genre_reply_but(call):
     if call.data == 'comedy':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали Комедии')
+        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Комедии')
     if call.data == 'fantasy':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали Фантастика')
+        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Фантастика')
     if call.data == 'mult':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали Мультфильмы')
+        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Мультфильмы')
     if call.data == 'horror':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали Ужасы')
+        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Ужасы')
+
+
+
 
 
 
