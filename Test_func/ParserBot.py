@@ -72,9 +72,6 @@ def ganre_repl(message):
         bot_p.send_photo(message.chat.id, photo=pic_film, caption=n_film)
 
 
-
-
-
 @bot_p.callback_query_handler(func=lambda call: True)
 def genre_reply_but(call):
     if call.data == 'comedy':
