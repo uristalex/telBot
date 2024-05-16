@@ -1,6 +1,6 @@
 import telebot
 from config import TOKEN
-from Pars_for_Bot import spisok_500, rand_popular, rand_mult
+from Pars_for_Bot import spisok_500, rand_popular, rand_akt
 
 
 bot_p = telebot.TeleBot(TOKEN)
@@ -74,20 +74,9 @@ def ganre_repl(message):
 
 @bot_p.callback_query_handler(func=lambda call: True)
 def genre_reply_but(call):
-    if call.data == 'comedy':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Комедии')
-    if call.data == 'fantasy':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Фантастика')
-    if call.data == 'mult':
-        n_film, pic_film = rand_mult()
-        bot_p.send_photo(call.message.chat.id, photo=pic_film, caption=n_film)
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Мультфильмы')
-    if call.data == 'horror':
-        bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Ужасы')
-
-
-
-
+    tup, name_tup, linc_tup = rand_akt(call.data)
+    bot_p.send_message(call.message.chat.id, f'Вы выбрали случайный фильм из жанра {tup}')
+    bot_p.send_photo(call.message.chat.id, photo=linc_tup, caption=name_tup)
 
 
 bot_p.polling()
