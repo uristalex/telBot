@@ -31,9 +31,9 @@ def key_pusk():
     button_genre = telebot.types.KeyboardButton("Жанры фильмов")
     button_rand_popular = telebot.types.KeyboardButton("Случайный фильм из ожидаемых")
     button_rand_500 = telebot.types.KeyboardButton("Случайный фильм из 500 лучших")
-    keyb_markup.row(button_genre, button_rand_popular)
+    keyb_markup.row(button_rand_500, button_rand_popular)
     # keyb_markup.row(button_rand_popular)
-    keyb_markup.row(button_rand_500)
+    keyb_markup.row(button_genre)
     return keyb_markup
 
 
@@ -77,6 +77,7 @@ def genre_reply_but(call):
     tup, name_tup, linc_tup = rand_akt(call.data)
     bot_p.send_message(call.message.chat.id, f'Вы выбрали случайный фильм из жанра {tup}')
     bot_p.send_photo(call.message.chat.id, photo=linc_tup, caption=name_tup)
+    bot_p.send_message(call.message.chat.id, 'Выберите один из жанров: ', reply_markup=key_gener())
 
 
 bot_p.polling()
