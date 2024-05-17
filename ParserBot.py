@@ -1,6 +1,6 @@
 import telebot
 from config import TOKEN
-from Pars_for_Bot import spisok_500, rand_popular
+from Pars_for_Bot import spisok_500, rand_popular, rand_mult
 
 
 bot_p = telebot.TeleBot(TOKEN)
@@ -13,10 +13,6 @@ def start_mess(message):
     bot_p.send_message(message.chat.id, f'{poem}')
     bot_p.register_next_step_handler(message, reg_name)
 
-
-    # with open('text.txt', 'a', encoding='utf-8') as f:
-    #     print(f'Время: {time_covert(message.date)} {message.from_user.username} написал: {message.text}', file=f)
-    #     # print(message)
 
 
 @bot_p.message_handler(commands=['help'])
@@ -86,6 +82,8 @@ def genre_reply_but(call):
     if call.data == 'fantasy':
         bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Фантастика')
     if call.data == 'mult':
+        n_film, pic_film = rand_mult()
+        bot_p.send_photo(call.message.chat.id, photo=pic_film, caption=n_film)
         bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Мультфильмы')
     if call.data == 'horror':
         bot_p.send_message(call.message.chat.id, 'Вы выбрали случайный фильм из жанра Ужасы')
