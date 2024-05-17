@@ -1,6 +1,7 @@
 import telebot
 from config import TOKEN
 from Pars_for_Bot import spisok_500, rand_popular, rand_akt
+from youtube_d import Download_vid
 
 
 bot_p = telebot.TeleBot(TOKEN)
@@ -70,6 +71,12 @@ def ganre_repl(message):
     if message.text == "Случайный фильм из 500 лучших":
         n_film, pic_film = spisok_500()
         bot_p.send_photo(message.chat.id, photo=pic_film, caption=n_film)
+    if 'youtube' in message.text:
+        s = Download_vid(message.text)
+
+        bot_p.send_document(message.chat.id, open(f'{s}', 'rb') )
+
+
 
 
 @bot_p.callback_query_handler(func=lambda call: True)
