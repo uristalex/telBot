@@ -9,6 +9,7 @@ spisok_wait = []
 spisok_horror = []
 spisok_camedy = []
 spisok_fantasy = []
+spisok_mult = []
 
 
 def time_covert(t):
@@ -45,3 +46,20 @@ def rand_popular():
         return random.choice(spisok_wait)
     else:
         return random.choice(spisok_wait)
+
+
+def rand_mult():
+    global spisok_mult
+    if len(spisok_mult) == 0:
+        response_get = requests.get(f'https://www.kinoafisha.info/rating/movies/animation/')
+        soup = bs(response_get.text, features='html.parser')
+        list_films = soup.find_all('a', class_='movieItem_title')
+        for film in list_films:
+            link_pic = soup.find(alt=f'{film.text}')
+            if not link_pic:
+                spisok_mult.append([film.text, 'https://img.freepik.com/premium-vector/ooops-comic-book-explosion-icon-simple-illustration-ooops-comic-book-explosion-vector-icon-web_96318-26126.jpg?w=826'])
+            else:
+                spisok_mult.append([film.text, str(link_pic.get('data-picture'))])
+        return random.choice(spisok_mult)
+    else:
+        return random.choice(spisok_mult)
