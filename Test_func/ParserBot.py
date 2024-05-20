@@ -71,10 +71,19 @@ def ganre_repl(message):
     if message.text == "Случайный фильм из 500 лучших":
         n_film, pic_film = spisok_500()
         bot_p.send_photo(message.chat.id, photo=pic_film, caption=n_film)
-    if 'youtube' in message.text:
-        s = Download_vid(message.text)
-
-        bot_p.send_document(message.chat.id, open(f'{s}', 'rb') )
+    if 'youtu' in message.text:
+        try:
+            s = Download_vid(message.text)
+            print(s)
+            bot_p.send_message(message.chat.id, 'Загрузка началась подождите немного')
+            with open(s, 'rb') as file:
+                f = file.read()
+            # bot_p.send_document(message.chat.id, open(s, 'rb'))
+            bot_p.send_document(message.chat.id, document=f, visible_file_name=s)
+        except:
+            sorry_text = 'К сожалению видео видео большого размера я на могу скачать'
+            print('ERROR')
+            bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
 
 
 
