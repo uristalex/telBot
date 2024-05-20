@@ -6,7 +6,7 @@ def Download_vid(link):
     yt1 = YouTube(link)
     yt = yt1.streams.get_highest_resolution()
     title_vid = yt.title
-    for c in '\/:*?"<>#|':
+    for c in '\/:*?"<>#|.,':
         title_vid = title_vid.replace(c, '')
     try:
         # print(title_vid)
