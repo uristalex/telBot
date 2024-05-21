@@ -12,25 +12,27 @@ def split_name(title_n: str):
 def Download_vid(url: str):
     try:
         ydl_opts = {
-            # 'outtmpl': f'%(title)s.%(ext)s',
-            'outtmpl': f'%(id)s.%(ext)s',
+            'outtmpl': f'%(title)s.%(ext)s',
+            # 'outtmpl': f'%(id)s.%(ext)s',
             'quiet': True,
             'no_warnings': True
         }
         with YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
-
-            ydl.download([url])
-        old_name = f'{info["id"]}.mp4'
-        new_name = f'{split_name(info["title"])}.mp4'
-        if os.path.exists(new_name):
-            return f'{new_name}'
-        else:
-            os.renames(old_name, new_name)
-            return f'{new_name}'
+            ydl_opts['outtmpl']['default'] = f'videos/{split_name(info["title"])}.mp4'
+            # print(ydl_opts)
+        ydl.download([url])
+        # old_name = f'{info["id"]}.mp4'
+        # new_name = f'{split_name(info["title"])}.mp4'
+        # if os.path.exists(new_name):
+        #     return f'{new_name}'
+        # else:
+        #     os.renames(old_name, new_name)
+        return ydl_opts['outtmpl']['default']
+        # return print(ydl_opts['outtmpl']['default'])
 
     except Exception as err:
         print(err)
-        return 'error'
+        return 'Er'
 
-Download_vid('https://youtube.com/shorts/1avI5l__3HY?si=xMFg_GfWgX5GMDO6')
+# Download_vid('https://youtube.com/shorts/o53gH1nwtxU?si=D_ZKBtlnmrh4Fegx')
