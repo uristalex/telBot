@@ -1,6 +1,7 @@
 import telebot
 from config import TOKEN
-from youtube_d import Download_vid
+# from youtube_d import Download_vid
+from YouDDl import Download_vid
 
 
 bot_p = telebot.TeleBot(TOKEN)
@@ -10,8 +11,6 @@ start_text = 'Тебя приветствует бот для загрузки �
 @bot_p.message_handler(commands=['start'])
 def start_mess(message):
     bot_p.send_message(message.chat.id, f'{start_text}')
-
-
 
 
 @bot_p.message_handler(commands=['help'])
