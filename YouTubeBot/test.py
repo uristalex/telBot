@@ -12,4 +12,4 @@ def download(link, name='%(title)s'):
     return downloaded_file_path
 
 
-print(download('https://www.youtube.com/watch?v=uHgt8giw1LY'))
+print(download('https://youtube.com/shorts/TkUnMuxfCnM?si=sdOoSOA-Ny5vy-1T'))
