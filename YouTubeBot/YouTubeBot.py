@@ -27,7 +27,7 @@ def help_mess(message):
 def ganre_repl(message):
     if message.text.startswith('s'):
         Download_vid(message.text.lstrip('s'), True)
-        bot_p.send_message(message.chat.id, 'Пасхалка, загружено на сервер')
+        bot_p.send_message(message.chat.id, 'загружено на сервер')
     elif message.text.startswith('http'):
         try:
             bot_p.send_message(message.chat.id, 'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
