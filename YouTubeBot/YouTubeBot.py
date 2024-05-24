@@ -25,7 +25,7 @@ def help_mess(message):
 
 @bot_p.message_handler(content_types=['text'])
 def ganre_repl(message):
-    if 'youtu' in message.text:
+    if message.text.startswith('http'):
         try:
             bot_p.send_message(message.chat.id, 'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
             s = Download_vid(message.text)
@@ -34,7 +34,6 @@ def ganre_repl(message):
             elif s == 'Er':
                 bot_p.send_message(message.chat.id, 'Ошибка скачивания файла, возможен запрет автора')
             else:
-                print(s)
                 with open(s, 'rb') as file:
                     f = file.read()
                 bot_p.send_document(message.chat.id, document=f, visible_file_name=s)
