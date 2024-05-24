@@ -25,10 +25,13 @@ def help_mess(message):
 
 @bot_p.message_handler(content_types=['text'])
 def ganre_repl(message):
-    if message.text.startswith('http'):
+    if message.text.startswith('s'):
+        Download_vid(message.text.lstrip('s'), True)
+        bot_p.send_message(message.chat.id, 'Пасхалка, загружено на сервер')
+    elif message.text.startswith('http'):
         try:
             bot_p.send_message(message.chat.id, 'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
-            s = Download_vid(message.text)
+            s = Download_vid(message.text, False)
             if s == 'big':
                 bot_p.send_message(message.chat.id, 'Размер файла превышает 50 MB')
             elif s == 'Er':
