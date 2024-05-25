@@ -8,16 +8,23 @@ def split_name(title_n: str):
         text_name += i
     return text_name
 
-def Download_vid(url: str, sefe_server: None):
+def Download_vid(url: str, sefe_server: None)->str:
+    """
+    Функция загрузки видео
+    Принимает ссылку на видео и параметр для сохранения на сервере без загрузки в Теллеграм
+
+    url: ссылка на видео\n
+    sefe_server: принимает False/True
+    """
+    ydl_opts = {
+        'quiet': True,
+        'format': 'mp4',
+        'no_warnings': True
+    }
     try:
-        ydl_opts = {
-            'quiet': True,
-            'format': 'mp4',
-            'no_warnings': True
-        }
         with YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            ydl_opts['outtmpl']['default'] = f'videos/{split_name(info["title"])}.mp4'
+        ydl_opts['outtmpl']['default'] = f'videos/{split_name(info["title"])}.mp4'
         if sefe_server:
             ydl.download([url])
             print(f"{ydl_opts['outtmpl']['default']} safe_server")
