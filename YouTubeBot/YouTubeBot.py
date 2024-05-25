@@ -13,14 +13,27 @@ def start_mess(message):
     bot_p.send_message(message.chat.id, f'{start_text}')
 
 
+@bot_p.message_handler(commands=['error'])
+def error_mes(message):
+    error_text = ('YouTube имеет возможность ограничивать использования своего контента на других платформах'
+                  'в связи с чем отдельные ролики не могут быть скачаны.')
+    bot_p.send_message(message.chat.id, error_text)
+
+
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
     help_text = """
     В настоящий момент бот поддерживает загрузку только коротких видео\n
     К сожалению некоторые видео не удается скачать так как автор видео может поставить запрет\n
-    Т
+    
     """
     bot_p.send_message(message.chat.id, help_text)
+
+
+@bot_p.message_handler(commands=['help_bot'])
+def help_bot(message):
+    bot_donate = 'Если хотите поддержать развитие БОТА приобретите себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824 '
+    bot_p.send_message(message.chat.id, bot_donate)
 
 
 @bot_p.message_handler(content_types=['text'])
@@ -41,7 +54,7 @@ def ganre_repl(message):
                     f = file.read()
                 bot_p.send_document(message.chat.id, document=f, visible_file_name=s)
         except:
-            sorry_text = 'К сожалению видео видео большого размера я на могу скачать'
+            sorry_text = 'К сожалению видео большого размера я на могу скачать'
             print('ERROR')
             bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
 
