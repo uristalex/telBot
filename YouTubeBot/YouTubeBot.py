@@ -6,9 +6,9 @@ from YouDDl import Download_vid
 
 bot_p = telebot.TeleBot(TOKEN)
 
-start_text = 'Тебя приветствует бот для загрузки Шотсов из YouTube\n Для загрузки вставь ссылку на видео \n или поделись ею в бот из приложения YouTube'
+start_text = 'Тебя  приветствует  бот для загрузки Шотсов из YouTube\n Для загрузки вставь ссылку на видео \n или поделись ею в бот из приложения YouTube'
 
-@bot_p.message_handler(commands=['start'])
+@bot_p.message_handler(commands=['start'])#Хендлер для отработки старта бота
 def start_mess(message):
     bot_p.send_message(message.chat.id, f'{start_text}')
 

@@ -1,6 +1,10 @@
 from yt_dlp import YoutubeDL
 
 def split_name(title_n: str):
+    """Функция удаления специальных символов
+    принимает строку для преобразования
+
+    """
     text_name = ''
     for i in title_n:
         if i in '\/:*?"<>#|@.,':
@@ -13,7 +17,8 @@ def Download_vid(url: str, sefe_server: None)->str:
     Функция загрузки видео
     Принимает ссылку на видео и параметр для сохранения на сервере без загрузки в Теллеграм
 
-    url: ссылка на видео\n
+    url: ссылка на видео
+
     sefe_server: принимает False/True
     """
     ydl_opts = {
