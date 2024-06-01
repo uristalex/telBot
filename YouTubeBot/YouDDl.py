@@ -14,7 +14,7 @@ def split_name(title_n: str) -> str:
     return text_name
 
 
-def download_vid(url: str, sefe_server=False) -> str:
+def download_vid(url: str, sefe_server: bool = False) -> str:
     """
     Функция загрузки видео
     Принимает ссылку на видео и параметр для сохранения на сервере без загрузки в Теллеграм

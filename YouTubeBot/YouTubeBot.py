@@ -3,12 +3,11 @@ from config import TOKEN
 # from youtube_d import Download_vid
 from YouDDl import download_vid
 
-
 bot_p = telebot.TeleBot(TOKEN)
-
 start_text = 'Тебя  приветствует  бот для загрузки Шотсов из YouTube\n Для загрузки вставь ссылку на видео \n или поделись ею в бот из приложения YouTube'
 
-@bot_p.message_handler(commands=['start'])#Хендлер для отработки старта бота
+
+@bot_p.message_handler(commands=['start'])
 def start_mess(message):
     bot_p.send_message(message.chat.id, f'{start_text}')
 
@@ -43,7 +42,8 @@ def ganre_repl(message):
         bot_p.send_message(message.chat.id, 'загружено на сервер')
     elif message.text.startswith('http'):
         try:
-            bot_p.send_message(message.chat.id, 'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
+            bot_p.send_message(message.chat.id,
+                               'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
             s = download_vid(message.text, False)
             if s == 'big':
                 bot_p.send_message(message.chat.id, 'Размер файла превышает 50 MB')
@@ -54,7 +54,6 @@ def ganre_repl(message):
                     f = file.read()
                 bot_p.send_document(message.chat.id, document=f, visible_file_name=s)
         except:
-            sorry_text = 'К сожалению видео большого размера я на могу скачать'
             print('ERROR')
             bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
 
