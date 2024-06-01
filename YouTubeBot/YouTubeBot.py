@@ -21,7 +21,7 @@ def error_mes(message):
 
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
-    help_text = """
+    help_text: str = """
     В настоящий момент бот поддерживает загрузку только коротких видео\n
     К сожалению некоторые видео не удается скачать так как автор видео может поставить запрет\n
     
@@ -31,7 +31,7 @@ def help_mess(message):
 
 @bot_p.message_handler(commands=['help_bot'])
 def help_bot(message):
-    bot_donate = 'Если хотите поддержать развитие БОТА приобретите себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824 '
+    bot_donate: str = 'Если хотите поддержать развитие БОТА приобретите себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824 '
     bot_p.send_message(message.chat.id, bot_donate)
 
 
