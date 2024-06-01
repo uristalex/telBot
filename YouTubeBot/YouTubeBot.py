@@ -1,7 +1,7 @@
 import telebot
 from config import TOKEN
 # from youtube_d import Download_vid
-from YouDDl import Download_vid
+from YouDDl import download_vid
 
 
 bot_p = telebot.TeleBot(TOKEN)
@@ -39,12 +39,12 @@ def help_bot(message):
 @bot_p.message_handler(content_types=['text'])
 def ganre_repl(message):
     if message.text.startswith('s'):
-        Download_vid(message.text.lstrip('s'), True)
+        download_vid(message.text.lstrip('s'), True)
         bot_p.send_message(message.chat.id, 'загружено на сервер')
     elif message.text.startswith('http'):
         try:
             bot_p.send_message(message.chat.id, 'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
-            s = Download_vid(message.text, False)
+            s = download_vid(message.text, False)
             if s == 'big':
                 bot_p.send_message(message.chat.id, 'Размер файла превышает 50 MB')
             elif s == 'Er':
