@@ -1,10 +1,10 @@
-import telebot
+from telebot import TeleBot
 from config import TOKEN
 # from youtube_d import Download_vid
 from YouDDl import download_vid
 
-bot_p = telebot.TeleBot(TOKEN)
-start_text = 'Тебя  приветствует  бот для загрузки Шотсов из YouTube\n Для загрузки вставь ссылку на видео \n или поделись ею в бот из приложения YouTube'
+bot_p = TeleBot(TOKEN)
+start_text = 'Тебя  приветствует бот для загрузки Шотсов из YouTube\nДля загрузки вставь ссылку на видео \nили поделись ею в бот из приложения YouTube'
 
 
 @bot_p.message_handler(commands=['start'])
@@ -21,11 +21,8 @@ def error_mes(message):
 
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
-    help_text: str = """
-    В настоящий момент бот поддерживает загрузку только коротких видео\n
-    К сожалению некоторые видео не удается скачать так как автор видео может поставить запрет\n
-    
-    """
+    help_text: str = ('В настоящий момент бот поддерживает загрузку только коротких видео\n'
+                      'К сожалению некоторые видео не удается скачать так как автор видео может поставить запрет\n')
     bot_p.send_message(message.chat.id, help_text)
 
 
