@@ -1,11 +1,9 @@
 # Библиотеки
 import time
 import telebot
-from config import TOKEN
+from AioTest.config import TOKEN
 import sqlite3 as sl
-from datetime import datetime, timezone, timedelta
-
-
+from datetime import datetime, timezone
 
 bot_tell = telebot.TeleBot(TOKEN)
 name = ''
