@@ -37,7 +37,7 @@ def ganre_repl(message):
     if message.text.startswith('s'):
         download_vid(message.text.lstrip('s'), True)
         bot_p.send_message(message.chat.id, 'загружено на сервер')
-    elif message.text.startswith('http'):
+    elif message.text.startswith('http') and ('shorts' in message.text):
         try:
             bot_p.send_message(message.chat.id,
                                'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
@@ -53,6 +53,7 @@ def ganre_repl(message):
         except:
             print('ERROR')
             bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
-
+    else:
+        bot_p.send_message(message.chat.id, 'Вставьте корректную ссылку')
 
 bot_p.polling()
