@@ -1,5 +1,5 @@
 import telebot
-from config import TOKEN
+from AioTest.config import TOKEN
 from Pars_for_Bot import spisok_500, rand_popular, rand_mult
 
 
