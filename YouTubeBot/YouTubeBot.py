@@ -1,15 +1,18 @@
-from telebot import TeleBot
+import datetime as DT
+import telebot
 from config import TOKEN
 # from youtube_d import Download_vid
 from YouDDl import download_vid
 
-bot_p = TeleBot(TOKEN)
+bot_p = telebot.TeleBot(TOKEN)
 start_text = 'Тебя  приветствует бот для загрузки Шотсов из YouTube\nДля загрузки вставь ссылку на видео \nили поделись ею в бот из приложения YouTube'
-
+CHAT_BY_DATETIME = dict()
 
 @bot_p.message_handler(commands=['start'])
 def start_mess(message):
     bot_p.send_message(message.chat.id, f'{start_text}')
+
+
 
 
 @bot_p.message_handler(commands=['error'])
@@ -32,7 +35,9 @@ def help_bot(message):
     bot_p.send_message(message.chat.id, bot_donate)
 
 
-@bot_p.message_handler(content_types=['text'])
+
+
+# @bot_p.message_handler(content_types=['text'])
 def ganre_repl(message):
     if message.text.startswith('s'):
         download_vid(message.text.lstrip('s'), True)
@@ -55,5 +60,27 @@ def ganre_repl(message):
             bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
     else:
         bot_p.send_message(message.chat.id, 'Вставьте корректную ссылку')
+
+
+@bot_p.message_handler(func=lambda message: True)
+def on_request(message: telebot.types.Message):
+    text = ''
+    need_seconds = 20
+    current_time = DT.datetime.now()
+    last_datetime = CHAT_BY_DATETIME.get(message.chat.id)
+    if not last_datetime:
+        CHAT_BY_DATETIME[message.chat.id] = current_time
+        ganre_repl(message)
+    else:
+        delta_seconds = (current_time - last_datetime).total_seconds()
+        seconds_left = int(need_seconds - delta_seconds)
+        if seconds_left > 0:
+            text = f'Подождите {seconds_left} секунд перед выполнение этой команды'
+        else:
+            CHAT_BY_DATETIME[message.chat.id] = current_time
+            ganre_repl(message)
+
+    if text:
+        bot_p.reply_to(message, text)
 
 bot_p.polling()
