@@ -1,11 +1,12 @@
-from telebot import TeleBot
+import datetime as DT
+import telebot
 from config import TOKEN
 # from youtube_d import Download_vid
 from YouDDl import download_vid
 
-bot_p = TeleBot(TOKEN)
-start_text = 'Тебя  приветствует бот для загрузки Шотсов из YouTube\nДля загрузки вставь ссылку на видео \nили поделись ею в бот из приложения YouTube'
-
+bot_p = telebot.TeleBot(TOKEN)
+start_text = 'Тебя  приветствует бот для загрузки YouTube SHOTS. Для загрузки вставь ссылку на видео или поделись ею в бот из приложения YouTube'
+CHAT_BY_DATETIME = dict()
 
 @bot_p.message_handler(commands=['start'])
 def start_mess(message):
@@ -21,18 +22,22 @@ def error_mes(message):
 
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
-    help_text: str = ('В настоящий момент бот поддерживает загрузку только коротких видео\n'
-                      'К сожалению некоторые видео не удается скачать так как автор видео может поставить запрет\n')
+    help_text: str = ('В настоящий момент бот поддерживает загрузку только коротких видео.\n'
+                      'К сожалению некоторые видео не удается скачать'
+                      'так как автор видео может поставить запрет')
     bot_p.send_message(message.chat.id, help_text)
 
 
 @bot_p.message_handler(commands=['help_bot'])
 def help_bot(message):
-    bot_donate: str = 'Если хотите поддержать развитие БОТА приобретите себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824 '
+    bot_donate: str = ('Если хотите поддержать развитие БОТА приобретите'
+                       'себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824')
     bot_p.send_message(message.chat.id, bot_donate)
 
 
-@bot_p.message_handler(content_types=['text'])
+
+
+# @bot_p.message_handler(content_types=['text'])
 def ganre_repl(message):
     if message.text.startswith('s'):
         download_vid(message.text.lstrip('s'), True)
@@ -56,4 +61,27 @@ def ganre_repl(message):
     else:
         bot_p.send_message(message.chat.id, 'Вставьте корректную ссылку')
 
-bot_p.polling()
+
+@bot_p.message_handler(func=lambda message: True)
+def on_request(message: telebot.types.Message):
+    text = ''
+    need_seconds = 20
+    current_time = DT.datetime.now()
+    last_datetime = CHAT_BY_DATETIME.get(message.chat.id)
+    if not last_datetime:
+        CHAT_BY_DATETIME[message.chat.id] = current_time
+        ganre_repl(message)
+    else:
+        delta_seconds = (current_time - last_datetime).total_seconds()
+        seconds_left = int(need_seconds - delta_seconds)
+        if seconds_left > 0:
+            text = f'Подождите {seconds_left} секунд перед выполнение этой команды'
+        else:
+            CHAT_BY_DATETIME[message.chat.id] = current_time
+            ganre_repl(message)
+
+    if text:
+        bot_p.send_message(message.chat.id, text)
+
+if __name__ == "__main__":
+    bot_p.polling(none_stop=True)
