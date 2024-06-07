@@ -5,7 +5,7 @@ from config import TOKEN
 from YouDDl import download_vid
 
 bot_p = telebot.TeleBot(TOKEN)
-start_text = 'Тебя  приветствует бот для загрузки Шотсов из YouTube\nДля загрузки вставь ссылку на видео \nили поделись ею в бот из приложения YouTube'
+start_text = 'Тебя  приветствует бот для загрузки YouTube SHOTS. Для загрузки вставь ссылку на видео или поделись ею в бот из приложения YouTube'
 CHAT_BY_DATETIME = dict()
 
 @bot_p.message_handler(commands=['start'])
@@ -22,14 +22,16 @@ def error_mes(message):
 
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
-    help_text: str = ('В настоящий момент бот поддерживает загрузку только коротких видео\n'
-                      'К сожалению некоторые видео не удается скачать так как автор видео может поставить запрет\n')
+    help_text: str = ('В настоящий момент бот поддерживает загрузку только коротких видео.\n'
+                      'К сожалению некоторые видео не удается скачать'
+                      'так как автор видео может поставить запрет')
     bot_p.send_message(message.chat.id, help_text)
 
 
 @bot_p.message_handler(commands=['help_bot'])
 def help_bot(message):
-    bot_donate: str = 'Если хотите поддержать развитие БОТА приобретите себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824 '
+    bot_donate: str = ('Если хотите поддержать развитие БОТА приобретите'
+                       'себе сервер по моей рефферальной ссылке: https://zomro.com/vds?from=4824')
     bot_p.send_message(message.chat.id, bot_donate)
 
 
@@ -82,4 +84,4 @@ def on_request(message: telebot.types.Message):
         bot_p.send_message(message.chat.id, text)
 
 if __name__ == "__main__":
-    bot_p.polling()
+    bot_p.polling(none_stop=True)
