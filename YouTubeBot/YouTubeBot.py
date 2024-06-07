@@ -13,8 +13,6 @@ def start_mess(message):
     bot_p.send_message(message.chat.id, f'{start_text}')
 
 
-
-
 @bot_p.message_handler(commands=['error'])
 def error_mes(message):
     error_text = ('YouTube имеет возможность ограничивать использования своего контента на других платформах'
@@ -81,6 +79,7 @@ def on_request(message: telebot.types.Message):
             ganre_repl(message)
 
     if text:
-        bot_p.reply_to(message, text)
+        bot_p.send_message(message.chat.id, text)
 
-bot_p.polling()
+if __name__ == "__main__":
+    bot_p.polling()
