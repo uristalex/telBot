@@ -2,7 +2,7 @@ import datetime as DT
 import telebot
 from config import TOKEN
 # from youtube_d import Download_vid
-from YouDDl import download_vid
+from YouDDl import download_vid, download_serv
 
 bot_p = telebot.TeleBot(TOKEN)
 start_text = 'Тебя  приветствует бот для загрузки YouTube SHOTS. Для загрузки вставь ссылку на видео или поделись ею в бот из приложения YouTube'
@@ -40,7 +40,7 @@ def help_bot(message):
 # @bot_p.message_handler(content_types=['text'])
 def ganre_repl(message):
     if message.text.startswith('s'):
-        download_vid(message.text.lstrip('s'), True)
+        download_serv(message.text.lstrip('s'))
         bot_p.send_message(message.chat.id, 'загружено на сервер')
     elif message.text.startswith('http') and ('shorts' in message.text):
         try:
