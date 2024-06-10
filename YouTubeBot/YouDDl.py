@@ -100,7 +100,7 @@ def download_vid(url: str, sefe_server: bool = False) -> str:
 
 
 
-download_serv('https://youtube.com/shorts/VNpFR1ow-3U?si=429A7X6-oCCI5-Wb')
+# download_serv('https://youtube.com/shorts/VNpFR1ow-3U?si=429A7X6-oCCI5-Wb')
 
 
 # download_vid('https://youtube.com/shorts/VNpFR1ow-3U?si=429A7X6-oCCI5-Wb')

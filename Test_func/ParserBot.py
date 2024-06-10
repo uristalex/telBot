@@ -10,11 +10,15 @@ name = ''
 
 @bot_p.message_handler(commands=['start'])
 def start_mess(message):
+
     poem = f'Тебя приветствует бот помощник.\n Введи свое имя и начнем'
     bot_p.send_message(message.chat.id, f'{poem}')
     bot_p.register_next_step_handler(message, reg_name)
 
 
+@bot_p.message_handler(commands=['restart'])
+def restart_bot(message):
+    bot_p.delete_message(message.chat.id, message.message_id)
 
 @bot_p.message_handler(commands=['help'])
 def help_mess(message):
