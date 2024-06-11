@@ -10,6 +10,7 @@ CHAT_BY_DATETIME = dict()
 
 @bot_p.message_handler(commands=['start'])
 def start_mess(message):
+    # bot_p.delete_message(message.chat.id, )
     bot_p.send_message(message.chat.id, f'{start_text}')
 
 
