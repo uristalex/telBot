@@ -55,7 +55,8 @@ def ganre_repl(message):
             else:
                 with open(s, 'rb') as file:
                     f = file.read()
-                bot_p.send_document(message.chat.id, document=f, visible_file_name=s)
+                bot_p.send_document(message.chat.id, document=f, visible_file_name=s, caption=f'Предоставленно: https://t.me/YouShots_BOT')
+
         except:
             print('ERROR')
             bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
