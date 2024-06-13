@@ -57,10 +57,12 @@ def ganre_repl(message):
                 with open(s, 'rb') as file:
                     f = file.read()
                 bot_p.send_document(message.chat.id, document=f, visible_file_name=s, caption=f'Предоставленно: https://t.me/YouShots_BOT')
+                return True
 
         except:
             print('ERROR')
             bot_p.send_message(message.chat.id, 'Извините что-то пошло не так. Попробуйте другое видео :(')
+
     else:
         bot_p.send_message(message.chat.id, 'Вставьте корректную ссылку')
 
@@ -85,6 +87,7 @@ def on_request(message: telebot.types.Message):
 
     if text:
         bot_p.send_message(message.chat.id, text)
+
 
 if __name__ == "__main__":
     bot_p.polling(none_stop=True)
