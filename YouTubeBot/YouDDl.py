@@ -37,6 +37,20 @@ def delete_everything_in_folder(folder_path: str)-> None:
     os.mkdir(folder_path)
 
 
+def chek_size_total()-> None:
+    """
+    Функция контроля размера загруженных файлов
+    :return:
+    """
+    global total_vid_size
+    if total_vid_size == 0:
+        total_vid_size = folder_size('videos')
+    if total_vid_size > limit_vid_size:
+        delete_everything_in_folder('videos')
+        total_vid_size = 0
+        print('deleted')
+
+
 def download_serv(url: str) -> str:
     """
     Функция для загрузки видео на сервер
@@ -67,20 +81,10 @@ def download_vid(url: str, sefe_server: bool = False) -> str:
     global total_vid_size
     flag: str = ''
     ydl_opts = dict(quiet=True, format='mp4', no_warnings=True)
-    if total_vid_size == 0:
-        total_vid_size = folder_size('videos')
-    if total_vid_size > limit_vid_size:
-        delete_everything_in_folder('videos')
-        total_vid_size = 0
-        print('deleted')
+    chek_size_total()
     try:
         with YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
-        if sefe_server:
-            ydl_opts['outtmpl']['default'] = f'server/videos/{split_name(info["title"])}.mp4'
-            ydl.download([url])
-            print(f"{ydl_opts['outtmpl']['default']} safe_server")
-            flag = f'server'
         size_info = round((info['filesize_approx'] / 1024) / 1024, 2)
         if size_info > 49:
             print(f'Fail to Big: {size_info}')
@@ -94,7 +98,6 @@ def download_vid(url: str, sefe_server: bool = False) -> str:
     except Exception as err:
         print(err)
         flag = 'Er'
-
     print(total_vid_size)
     return flag
 
