@@ -44,9 +44,10 @@ def ganre_repl(message):
         download_serv(message.text.lstrip('s'))
         bot_p.send_message(message.chat.id, 'загружено на сервер')
     elif message.text.startswith('http') and ('shorts' in message.text):
+        bot_p.delete_message(message.chat.id, message.message_id)
         try:
             bot_p.send_message(message.chat.id,
-                               'Перед загрузкой проверим какого размера файл видео и нет ли ограничений')
+                               f'Перед загрузкой проверим какого размера файл видео и нет ли ограничений {len(CHAT_BY_DATETIME)}')
             s = download_vid(message.text, False)
             if s == 'big':
                 bot_p.send_message(message.chat.id, 'Размер файла превышает 50 MB')
