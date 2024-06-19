@@ -48,7 +48,7 @@ def ganre_repl(message):
         try:
             bot_p.send_message(message.chat.id,
                                f'Перед загрузкой проверим какого размера файл видео и нет ли ограничений {len(CHAT_BY_DATETIME)}')
-            s = download_vid(message.text, False)
+            s = download_vid(message.text)
             if s == 'big':
                 bot_p.send_message(message.chat.id, 'Размер файла превышает 50 MB')
             elif s == 'Er':
