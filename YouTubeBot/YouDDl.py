@@ -4,13 +4,13 @@ from pathlib import Path
 from yt_dlp import YoutubeDL
 
 
-limit_vid_size: float = 100
-total_vid_size: float = 0
+LIMIT_VID_SIZE: float = 100
+TOTAL_VID_SIZE: float = 0
 
 
 def split_name(title_n: str) -> str:
     """
-    Функция удаления специальных символов\n принимает строку для преобразования
+    Функция удаления специальных символов принимает строку для преобразования
     :param title_n: Строка для преобразования
     :return: Строка преобразованная функцией
     """
@@ -42,12 +42,12 @@ def chek_size_total()-> None:
     Функция контроля размера загруженных файлов
     :return:
     """
-    global total_vid_size
-    if total_vid_size == 0:
-        total_vid_size = folder_size('videos')
-    if total_vid_size > limit_vid_size:
+    global TOTAL_VID_SIZE
+    if TOTAL_VID_SIZE == 0:
+        TOTAL_VID_SIZE = folder_size('videos')
+    if TOTAL_VID_SIZE > LIMIT_VID_SIZE:
         delete_everything_in_folder('videos')
-        total_vid_size = 0
+        TOTAL_VID_SIZE = 0
         print('deleted')
 
 
@@ -73,12 +73,11 @@ def download_serv(url: str) -> str:
 def download_vid(url: str) -> str:
     """
     Функция загрузки видео
-    Принимает ссылку на видео и параметр для сохранения на сервере без загрузки в Теллеграм
+    Принимает ссылку на видео 
     :param url: ссылка на видео
-
     :return: Строка с именем файла для дальнейшей обработки в боте.
     """
-    global total_vid_size
+    global TOTAL_VID_SIZE
     flag: str = ''
     ydl_opts = dict(quiet=True, format='mp4', no_warnings=True)
     chek_size_total()
@@ -92,7 +91,7 @@ def download_vid(url: str) -> str:
         else:
             ydl_opts['outtmpl']['default'] = f'videos/{split_name(info["title"])}.mp4'
             ydl.download([url])
-            total_vid_size += size_info
+            TOTAL_VID_SIZE += size_info
             print(f"{ydl_opts['outtmpl']['default']} size {size_info}")
             flag = ydl_opts['outtmpl']['default']
     except Exception as err:
@@ -100,10 +99,3 @@ def download_vid(url: str) -> str:
         flag = 'Er'
     print(total_vid_size)
     return flag
-
-
-
-# download_serv('https://youtube.com/shorts/VNpFR1ow-3U?si=429A7X6-oCCI5-Wb')
-
-
-# download_vid('https://youtube.com/shorts/VNpFR1ow-3U?si=429A7X6-oCCI5-Wb')
