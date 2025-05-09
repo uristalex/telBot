@@ -11,6 +11,7 @@ NC='\033[0m' # Сброс цвета
 ### Пути и файлы ###
 UNINSTALL_FILE="$HOME/uninstall_$(date +%s).sh" # Файл для удаления
 LOG_FILE="/tmp/install_$(date +%s).log" # Лог установки
+REPO_URL="https://github.com/uristalex/telBot.git"
 
 ### Функция записи действий для последующего удаления ###
 log_uninstall() {
@@ -33,7 +34,7 @@ echo -e "${BLUE}Пользователь: ${USER_NAME}${NC}"
 
 ### Запрос URL репозитория ###
 # shellcheck disable=SC2162
-read -p "${YELLOW}Введите URL GitHub репозитория: ${NC}" REPO_URL
+# read -p "${YELLOW}Введите URL GitHub репозитория: ${NC}" REPO_URL
 
 ### Генерация уникальных имен ###
 PROJECT_DIR="$HOME/$(basename "${REPO_URL%.git}")_$(date +%s)"
